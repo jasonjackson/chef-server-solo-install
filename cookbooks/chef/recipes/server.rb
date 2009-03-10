@@ -72,6 +72,8 @@ chown -R couchdb /usr/local/var/lib/couchdb
 chown -R couchdb /usr/local/var/log/couchdb
 
 if [ ! -f /etc/init.d/couchdb ]; then ln -s /usr/local/etc/rc.d/couchdb /etc/init.d/couchdb; fi
+if [ ! -f /var/lib/couchdb ]; then ln -s /usr/local/var/lib/couchdb /var/lib/couchdb; fi
+
 EOH
 	end
 
