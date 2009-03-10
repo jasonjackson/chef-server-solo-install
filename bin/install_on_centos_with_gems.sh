@@ -16,4 +16,22 @@ update_rubygems
 gem sources -a http://gems.opscode.com
 gem install chef ohai chef-server
 
+mkdir /etc/chef
+
+echo <<<EOL
+#
+# Chef Solo Config File
+#
+log_level          :info
+log_location       STDOUT
+file_cache_path    "/tmp/chef-solo"
+cookbook_path      "/tmp/chef-solo/cookbooks"
+Chef::Log::Formatter.show_time = false
+
+
+EOL >> /etc/chef/chef-solo.rb
+
+git clone git://github.com/ehaselwanter/chef-server-solo-install.git /tmp/chef-solo
+
+chef-solo
 

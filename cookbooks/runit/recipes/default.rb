@@ -18,7 +18,7 @@
 #
 
 case node[:platform]
-when "debian","ubuntu","centos"
+when "debian","ubuntu"
   execute "start-runsvdir" do
     command "start runsvdir"
     action :nothing
@@ -40,6 +40,16 @@ when "debian","ubuntu","centos"
     file "/etc/inittab" do
       action :touch
     end
+  end
+when "centos"
+  execute "start-runsvdir" do
+    command "sed -i 's/var/etc/' /usr/sbin/runsvdir-start; runsvdir-start"
+    action :nothing
+  end
+
+  package "runit" do
+    action :install
+    notifies :run, resources(:execute => "start-runsvdir")
   end
 end
 
