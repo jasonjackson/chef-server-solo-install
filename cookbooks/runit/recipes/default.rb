@@ -43,7 +43,7 @@ when "debian","ubuntu"
   end
 when "centos"
   execute "start-runsvdir" do
-    command "sed -i 's/var/etc/' /usr/sbin/runsvdir-start; runsvdir-start"
+    command "runsvdir-start"
     action :nothing
   end
 
