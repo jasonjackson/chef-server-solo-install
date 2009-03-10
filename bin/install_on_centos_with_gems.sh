@@ -21,7 +21,7 @@ gem install chef ohai chef-server
 
 mkdir /etc/chef
 
-SOLO= <<- EOL
+cat > /etc/chef/solo.rb <<- EOL
 #
 # Chef Solo Config File
 #
@@ -31,8 +31,6 @@ file_cache_path    "/tmp/chef-solo"
 cookbook_path      "/tmp/chef-solo/cookbooks"
 Chef::Log::Formatter.show_time = false
 EOL 
-
-echo $SOLO > /etc/chef/solo.rb
 
 chef-solo
 
