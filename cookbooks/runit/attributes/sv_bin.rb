@@ -20,5 +20,5 @@
 
 runit_sv_bin `which sv`.chomp!
 
-runit_service_dir "/etc/service"
+runit_service_dir "/var/service"
 runit_sv_dir "/etc/sv"

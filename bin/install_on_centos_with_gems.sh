@@ -1,9 +1,12 @@
 #!/bin/bash
 wget http://source.collectiveidea.com/pub/linux/centos/4/i386/ci.repo -O /etc/yum.repos.d/ci.repo
-wget http://rubyworks.rubyforge.org/RubyWorks.repo -O /etc/yum.repos.d/RubyWorks.repo
 rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-3.noarch.rpm
 
-yum install -y ruby gcc gcc-c++ ruby-devel ruby-docs ruby-ri ruby-irb ruby-rdoc rubygems
+yum install -y ruby rubygems
+
+wget http://rubyworks.rubyforge.org/RubyWorks.repo -O /etc/yum.repos.d/RubyWorks.repo
+
+yum install -y ruby gcc gcc-c++ ruby-devel ruby-docs ruby-ri ruby-irb ruby-rdoc
 
 gem sources -d http://rubyworks.rubyforge.org/redhat/5/GEMS/i386/
 gem sources -a http://gems.rubyforge.org
@@ -29,9 +32,7 @@ cookbook_path      "/tmp/chef-solo/cookbooks"
 Chef::Log::Formatter.show_time = false
 
 
-EOL >> /etc/chef/chef-solo.rb
-
-git clone git://github.com/ehaselwanter/chef-server-solo-install.git /tmp/chef-solo
+EOL > /etc/chef/solo.rb
 
 chef-solo
 
