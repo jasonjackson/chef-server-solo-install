@@ -62,7 +62,7 @@ when "centos"
 		user "root"
  		cwd "/tmp"
   		code <<-EOH 
-svn checkout http://svn.apache.org/repos/asf/couchdb/trunk couchdb
+svn checkout http://svn.apache.org/repos/asf/couchdb/tags/0.8.1/ couchdb
 cd couchdb
 ./bootstrap
 ./configure --with-erlang=/usr/lib/erlang/usr/include && make && make install
@@ -73,7 +73,7 @@ chown -R couchdb /usr/local/var/log/couchdb
 
 if [ ! -f /etc/init.d/couchdb ]; then ln -s /usr/local/etc/rc.d/couchdb /etc/init.d/couchdb; fi
 if [ ! -f /var/lib/couchdb ]; then ln -s /usr/local/var/lib/couchdb /var/lib/couchdb; fi
-
+/etc/init.d/couchdb start
 EOH
 	end
 
