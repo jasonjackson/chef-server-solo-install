@@ -43,7 +43,42 @@ gem_package "stompserver" do
 end
 runit_service "stompserver"
 
-package "couchdb"
+
+case node[:platform]
+when "centos"
+	package "ncurses-devel"
+	package "openssl-devel"
+	package "icu"
+	package "libicu-devel"
+	package "js"
+	package "js-devel"
+	package "curl-devel"
+	package "erlang"
+	package "subversion"
+	package "libtool"
+	package "m4"
+
+	bash "install_couchdb" do
+		user "root"
+ 		cwd "/tmp"
+  		code <<-EOH 
+svn checkout http://svn.apache.org/repos/asf/couchdb/trunk couchdb
+cd couchdb
+./bootstrap
+./configure --with-erlang=/usr/lib/erlang/usr/include && make && make install
+
+adduser -r -d /usr/local/var/lib/couchdb couchdb
+chown -R couchdb /usr/local/var/lib/couchdb
+chown -R couchdb /usr/local/var/log/couchdb
+
+if [ ! -f /etc/init.d/couchdb ]; then ln -s /usr/local/etc/rc.d/couchdb /etc/init.d/couchdb; fi
+EOH
+	end
+
+else
+	package "couchdb"
+end
+
 
 directory "/var/lib/couchdb" do
   owner "couchdb"

@@ -18,7 +18,7 @@
 #
 
 case node[:platform]
-when "debian","ubuntu"
+when "debian","ubuntu","centos"
   execute "start-runsvdir" do
     command "start runsvdir"
     action :nothing

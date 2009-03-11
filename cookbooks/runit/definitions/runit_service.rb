@@ -23,7 +23,17 @@ define :runit_service, :directory => nil, :only_if => false do
   params[:directory] ||= node[:runit_sv_dir]
   
   sv_dir_name = "#{params[:directory]}/#{params[:name]}"
+
+  directory node[:runit_service_dir] do
+     mode 0755
+     action :create
+   end
   
+  directory node[:runit_sv_dir] do
+     mode 0755
+     action :create
+   end
+ 
   directory sv_dir_name do
     mode 0755
     action :create
